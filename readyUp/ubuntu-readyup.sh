@@ -15,7 +15,7 @@ log="$apps/install.log"
 err="$apps/install-err.log"
 
 progress=1
-total=35
+total=36
 
 
 cd $(dirname "$0")
@@ -252,6 +252,11 @@ apt install -y iotop 1>>$log 2>>$err && let progress++
 # iftop
 echo "[*] [ $progress/$total ] Installing iftop"
 apt install -y iftop 1>>$log 2>>$err && let progress++
+
+
+# aircrack
+echo "[*] [ $progress/$total ] Installing aircrack-ng"
+apt install -y aircrack-ng 1>>$log 2>>$err && let progress++
 
 
 # darktable
