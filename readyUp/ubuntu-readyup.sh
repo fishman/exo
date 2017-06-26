@@ -7,6 +7,8 @@
 user=eric
 apps=apps
 
+cd $(dirname "$0")
+
 if [ ! -d "$apps" ]; then
 	mkdir "$apps"
 fi
@@ -17,8 +19,6 @@ err="$apps/install-err.log"
 progress=1
 total=36
 
-
-cd $(dirname "$0")
 
 echo "[*] Updating repository"
 apt update 1>>$log 2>>$err
