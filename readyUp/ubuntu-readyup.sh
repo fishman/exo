@@ -17,7 +17,7 @@ log="$apps/install.log"
 err="$apps/install-err.log"
 
 progress=1
-total=36
+total=37
 
 
 echo "[*] Updating repository"
@@ -257,6 +257,13 @@ apt install -y iftop 1>>$log 2>>$err && let progress++
 # aircrack
 echo "[*] [ $progress/$total ] Installing aircrack-ng"
 apt install -y aircrack-ng 1>>$log 2>>$err && let progress++
+
+
+# flux
+echo "[*] [ $progress/$total ] Installing fluxgui"
+add-apt-repository -y ppa:nathan-renniewaldock/flux 1>>$log 2>>$err
+apt update 1>>$log 2>>$err
+apt install -y fluxgui 1>>$log 2>>$err && let progress++
 
 
 # darktable
