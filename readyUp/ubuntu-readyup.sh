@@ -43,6 +43,7 @@ apt install -y software-properties-common 1>>$log 2>>$err && let progress++ && e
 add-apt-repository -y ppa:noobslab/macbuntu 1>>$log 2>>$err 
 apt update 1>>$log 2>>$err 
 
+apt remove -y lightdm 1>>$log 2>>$err
 apt install -y gnome-tweak-tool 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed gnome-tweak-tool"
 apt install -y ubuntu-gnome-desktop 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed ubuntu-gnome-desktop"
 #apt install -y ubuntu-desktop 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed ubuntu-desktop"
