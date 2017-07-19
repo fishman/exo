@@ -17,7 +17,7 @@ log="$apps/install.log"
 err="$apps/install-err.log"
 
 progress=1
-total=37
+total=38
 
 
 echo "[*] Updating repository"
