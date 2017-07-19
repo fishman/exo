@@ -113,6 +113,11 @@ echo "[*] [ $progress/$total ] Installing virt-viewer"
 apt install -y virt-viewer 1>>$log 2>>$err && let progress++
 
 
+# x11vnc
+echo "[*] [ $progress/$total ] Installing x11vnc"
+apt install -y x11vnc 1>>$log 2>>$err && let progress++
+
+
 # tmux
 echo "[*] [ $progress/$total ] Installing tmux"
 apt install -y tmux 1>>$log 2>>$err && let progress++
