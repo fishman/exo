@@ -261,6 +261,11 @@ echo "[*] [ $progress/$total ] Installing iftop"
 apt install -y iftop 1>>$log 2>>$err && let progress++
 
 
+# glances
+echo "[*] [ $progress/$total ] Installing glances"
+apt install -y iftop 1>>$log 2>>$err && let progress++
+
+
 ## Stacer
 #echo "[*] [ $progress/$total ] Installing Stacer"
 #stacer=stacer.deb
