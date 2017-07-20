@@ -17,7 +17,7 @@ log="$apps/install.log"
 err="$apps/install-err.log"
 
 progress=1
-total=38
+total=39
 
 
 echo "[*] Updating repository"
@@ -259,6 +259,17 @@ apt install -y iotop 1>>$log 2>>$err && let progress++
 # iftop
 echo "[*] [ $progress/$total ] Installing iftop"
 apt install -y iftop 1>>$log 2>>$err && let progress++
+
+
+# Stacer
+echo "[*] [ $progress/$total ] Installing Stacer"
+stacer=stacer.deb
+if [ ! -f $apps/$stacer ]; then
+	wget -q -O $apps/$stacer 'https://github.com/oguzhaninan/Stacer/releases/download/v1.0.7/stacer_1.0.7_amd64.deb'
+	dpkg -i $apps/$stacer 1>>$log 2>>$err && let progress++
+else
+	dpkg -i $apps/$stacer 1>>$log 2>>$err && let progress++
+fi
 
 
 # aircrack
