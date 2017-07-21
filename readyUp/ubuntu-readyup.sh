@@ -17,7 +17,7 @@ log="$apps/install.log"
 err="$apps/install-err.log"
 
 progress=1
-total=39
+total=40
 
 
 echo "[*] Updating repository"
@@ -293,6 +293,12 @@ apt install -y fluxgui 1>>$log 2>>$err && let progress++
 echo "[*] [ $progress/$total ] Installing darktable"
 apt install -y darktable 1>>$log 2>>$err && let progress++
 
+
+# Veracrypt
+echo "[*] [ $progress/$total ] Installing Veracrypt"
+add-apt-repository ppa:unit193/encryption 1>>$log 2>>$err
+apt update 1>>$log 2>>$err
+apt install -y veracrypt 1>>$log 2>>$err && let progress++
 
 
 echo "[*] Done"
