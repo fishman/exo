@@ -17,7 +17,7 @@ log="$apps/install.log"
 err="$apps/install-err.log"
 
 progress=1
-total=40
+total=38
 
 
 echo "[*] Updating repository"
@@ -251,13 +251,13 @@ apt install -y skypeforlinux 1>>$log 2>>$err && let progress++
 
 
 # iotop
-echo "[*] [ $progress/$total ] Installing iotop"
-apt install -y iotop 1>>$log 2>>$err && let progress++
+#echo "[*] [ $progress/$total ] Installing iotop"
+#apt install -y iotop 1>>$log 2>>$err && let progress++
 
 
 # iftop
-echo "[*] [ $progress/$total ] Installing iftop"
-apt install -y iftop 1>>$log 2>>$err && let progress++
+#echo "[*] [ $progress/$total ] Installing iftop"
+#apt install -y iftop 1>>$log 2>>$err && let progress++
 
 
 # glances
