@@ -43,13 +43,13 @@ apt install -y software-properties-common 1>>$log 2>>$err && let progress++ && e
 add-apt-repository -y ppa:noobslab/macbuntu 1>>$log 2>>$err 
 apt update 1>>$log 2>>$err 
 
-apt remove -y lightdm 1>>$log 2>>$err
+#apt remove -y lightdm 1>>$log 2>>$err
 apt install -y gnome-tweak-tool 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed gnome-tweak-tool"
 apt install -y ubuntu-gnome-desktop 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed ubuntu-gnome-desktop"
 #apt install -y ubuntu-desktop 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed ubuntu-desktop"
 
 apt install -y plank 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed plank"
-apt install -y macbuntu-os-plank-theme-lts-v8 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed macbuntu-os-plank-themes"
+apt install -y macbuntu-os-plank-theme-v9 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed macbuntu-os-plank-themes"
 apt install -y macbuntu-os-icons-v9 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed macbuntu-os-icons-lts"
 apt install -y macbuntu-os-ithemes-v9 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed macbuntu-os-ithemes"
 #apt install -y slingscold 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed slingscold"
@@ -163,9 +163,10 @@ apt install -f -y 1>>$log 2>>$err && let progress++
 # Pycharm
 echo "[*] [ $progress/$total ] Installing Pycharm"
 pycharm=pycharm.tgz
+if [ ! -d '/opt/pycharm' ]; then mkdir /opt/pycharm; fi
 if [ ! -f $apps/$pycharm ]; then
 	wget -q -O $apps/$pycharm 'https://download.jetbrains.com/python/pycharm-community-2017.1.5.tar.gz'
-	tar zxf $apps/$pycharm -C /opt 1>>$log 2>>$err && let progress++
+	tar zxf $apps/$pycharm -C /opt/pycharm 1>>$log 2>>$err && let progress++
 	#rm $apps/$pycharm
 else
 	tar zxf $apps/$pycharm -C /opt 1>>$log 2>>$err && let progress++
@@ -176,8 +177,8 @@ cat > /usr/share/applications/pycharm.desktop << EOF
 Encoding=UTF-8
 Name=Pycharm IDE
 Comment=The Smarter Way to Code
-Exec=/bin/sh "/opt/pycharm/bin/pycharm.sh"
-Icon=/opt/pycharm/bin/pycharm.png
+Exec=/bin/sh "/opt/pycharm/pycharm-community-2017.1.5/bin/pycharm.sh"
+Icon=/opt/pycharm/pycharm-community-2017.1.5/bin/pycharm.png
 Categories=Application;Development;Python;IDE
 Version=1.0
 Type=Application
@@ -193,12 +194,12 @@ echo "[*] [ $progress/$total ] Installing Java JDK 8"
 file=jdk.tgz
 if [ ! -d '/opt/jdk' ]; then mkdir /opt/jdk; fi
 if [ ! -f $apps/$file ]; then
-	wget -q -O $apps/$file 'http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.tar.gz?AuthParam=1501280592_da70d19e878e82da630b628ddc4bd3e8'
+	wget -q -O $apps/$file 'http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.tar.gz?AuthParam=1501318793_2636421664f4541a5d9410458ca16143'
 	tar zxf $apps/$file -C /opt/jdk 1>>$log 2>>$err && let progress++
 else
 	tar zxf $apps/$file -C /opt/jdk 1>>$log 2>>$err && let progress++
 fi
-if [ ! -f /usr/local/bin/java ]; then
+if [ ! -f /usr/local/bin/javajdk ]; then
     ln -s /opt/jdk/jdk1.8.0_144/bin/java /usr/local/bin/javajdk
 else
     rm /usr/local/bin/javajdk
@@ -207,9 +208,7 @@ fi
 
 
 # NetBeans IDE
-echo "[*] [ $progress/$total ] Installing Java JDK 8"
-file=netbeans.sh
-http://download.netbeans.org/netbeans/8.2/final/bundles/netbeans-8.2-linux.sh --silent --state $apps/state.xml
+echo "[*] [ $progress/$total ] Installing NetBeans IDE"
 
 cat > $apps/state.xml <<EOF
 <?xml version="1.0" encoding="UTF-8"?><!--
@@ -329,17 +328,19 @@ cat > $apps/state.xml <<EOF
 </state>
 EOF
 
+file=netbeans.sh
 if [ ! -f $apps/$file ]; then
 	wget -q -O $apps/$file 'http://download.netbeans.org/netbeans/8.2/final/bundles/netbeans-8.2-linux.sh'
 	chmod +x $apps/$file
-    $apps/$file --silent --state $apps/state.xml
+    $apps/$file --silent --state $apps/state.xml 1>>$log 2>>$err && let progress++
 else
 	chmod +x $apps/$file
-    $apps/$file --silent --state $apps/state.xml
+    $apps/$file --silent --state $apps/state.xml 1>>$log 2>>$err && let progress++
 fi
 
 
 # Visual Studio Code
+echo "[*] [ $progress/$total ] Visual Studio Code"
 curl -s https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
 sh -c 'echo "deb [arch=amd64] http://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
@@ -421,7 +422,7 @@ apt install -y skypeforlinux 1>>$log 2>>$err && let progress++
 
 # glances
 echo "[*] [ $progress/$total ] Installing glances"
-apt install -y iftop 1>>$log 2>>$err && let progress++
+apt install -y glances 1>>$log 2>>$err && let progress++
 
 
 ## Stacer
