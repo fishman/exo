@@ -91,6 +91,40 @@ fi
 gsettings set org.gnome.desktop.wm.preferences button-layout "close,minimize,maximize:"		# Put buttons on left side
 
 
+# oranchelo-icon-theme
+echo "[*] [ $progress/$total ] Installing oranchelo-icon-theme"
+add-apt-repository -y ppa:oranchelo/oranchelo-icon-theme 1>>$log 2>>$err
+apt-get update 1>>$log 2>>$err
+apt-get install -y oranchelo-icon-theme 1>>$log 2>>$err && let progress++
+
+
+# arc-icon-theme
+echo "[*] [ $progress/$total ] Installing arc-icon-theme"
+if [ ! -d "$apps/arc-icon-theme" ]; then mkdir "$apps/arc-icon-theme"; fi
+if [ ! -d $apps/arc-icon-theme/Arc ]; then
+    git clone https://github.com/horst3180/arc-icon-theme.git "$apps/arc-icon-theme"
+    mv $apps/arc-icon-theme/Arc /usr/share/icons 1>>$log 2>>$err && let progress++
+else
+    mv $apps/arc-icon-theme/Arc /usr/share/icons 1>>$log 2>>$err && let progress++
+fi
+
+
+# capitaine-cursors
+echo "[*] [ $progress/$total ] Installing capitaine-cursors"
+file=capitaine-cursors.tgz
+if [ ! -d $apps/capitaine-cursors ]; then mkdir $apps/capitaine-cursors; fi
+if [ ! -f $apps/$file ]; then
+    wget -q -O $apps/$file https://dl.opendesktop.org/api/files/download/id/1489948557/capitaine-cursors-r2.tar.gz
+    tar zxf $apps/$file -C $apps/capitaine-cursors 1>>$log 2>>$err
+    mv $apps/capitaine-cursors/capitaine-cursors-r2/bin/xcursors $apps/capitaine-cursors/capitaine-cursors-r2/bin/capitaine-cursors 1>>$log 2>>$err && let progress++
+    mv $apps/capitaine-cursors/capitaine-cursors-r2/bin/capitaine-cursors /usr/share/icons 1>>$log 2>>$err && let progress++
+else
+    tar zxf $apps/$file -C $apps/capitaine-cursors 1>>$log 2>>$err
+    mv $apps/capitaine-cursors/capitaine-cursors-r2/bin/xcursors $apps/capitaine-cursors/capitaine-cursors-r2/bin/capitaine-cursors 1>>$log 2>>$err && let progress++
+    mv $apps/capitaine-cursors/capitaine-cursors-r2/bin/capitaine-cursors /usr/share/icons 1>>$log 2>>$err && let progress++
+fi
+
+
 apt install -y libreoffice-style-sifr 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed libreoffice styles"
 fonts=mac-fonts.zip
 if [ ! -f $apps/$fonts ]; then
