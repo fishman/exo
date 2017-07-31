@@ -5,7 +5,7 @@
 
 
 user=eric
-apps=apps
+apps=/tmp/apps
 
 cd $(dirname "$0")
 
@@ -40,8 +40,9 @@ apt install -f -y 1>>$log 2>>$err
 
 echo "[*] [ $progress/$total ] Installing Macbuntu"
 apt install -y software-properties-common 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed software-properties-common"
-add-apt-repository -y ppa:noobslab/macbuntu 1>>$log 2>>$err 
-apt update 1>>$log 2>>$err 
+# TODO: Causes core dump
+#add-apt-repository -y ppa:noobslab/macbuntu 1>>$log 2>>$err
+#apt update 1>>$log 2>>$err
 
 #apt remove -y lightdm 1>>$log 2>>$err
 apt install -y gnome-tweak-tool 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed gnome-tweak-tool"
@@ -49,9 +50,13 @@ apt install -y ubuntu-gnome-desktop 1>>$log 2>>$err && let progress++ && echo "[
 #apt install -y ubuntu-desktop 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed ubuntu-desktop"
 
 apt install -y plank 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed plank"
-apt install -y macbuntu-os-plank-theme-v9 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed macbuntu-os-plank-themes"
-apt install -y macbuntu-os-icons-v9 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed macbuntu-os-icons-lts"
-apt install -y macbuntu-os-ithemes-v9 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed macbuntu-os-ithemes"
+# TODO: Causes core dump
+#apt install -y macbuntu-os-plank-theme-v9 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed macbuntu-os-plank-themes"
+# TODO: Causes core dump
+#apt install -y macbuntu-os-icons-v9 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed macbuntu-os-icons-lts"
+# TODO: Causes core dump
+#apt install -y macbuntu-os-ithemes-v9 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed macbuntu-os-ithemes"
+
 #apt install -y slingscold 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed slingscold"
 #apt install -y albert 1>>$log 2>>$err && let progress++ && echo "[*] [ $progress/$total ] Installed albert"
 
